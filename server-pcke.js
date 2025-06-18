@@ -1,4 +1,8 @@
-import 'dotenv/config'
+import dotenv from 'dotenv'
+dotenv.config({
+	path: '.env.pcke'
+});
+
 import express from 'express';
 import qs from 'querystring';
 import pkceChallenge from 'pkce-challenge';
