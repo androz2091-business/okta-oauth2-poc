@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config({
-	path: '.env.pcke'
+	path: '.env.pkce'
 });
 
 import express from 'express';
