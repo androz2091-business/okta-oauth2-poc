@@ -25,7 +25,7 @@ app.get('/login', async (req, res) => {
 	const params = qs.stringify({
 		client_id: CLIENT_ID,
 		response_type: 'code',
-		scope: 'openid',
+		scope: 'openid profile email',
 		redirect_uri: REDIRECT_URI,
 		code_challenge,
 		code_challenge_method: 'S256',
@@ -60,7 +60,14 @@ app.get('/okta/redirect', async (req, res) => {
 
 	console.log('Tokens:', tokens);
 
-	res.send('Top, on access token est: ' + tokens.access_token + '<br /><br /><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQQiAiBTa_bEJvz1r2e64PEGAw3qvXsFJ4jIbqB0kuXXeF2vo9TPhqz8_DRWfD7fIPlduEWjAv2e6vnBKXt0UPJ8w" />');
+	const data = await fetch(`https://${OKTA_DOMAIN}/oauth2/v1/userinfo`, {
+		headers: {
+			'Authorization': `Bearer ${tokens.access_token}`
+		}
+	});
+	const userInfo = await data.json();
+
+	res.send('Top, ton email est ' + userInfo.email + '<br /><br /><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQQiAiBTa_bEJvz1r2e64PEGAw3qvXsFJ4jIbqB0kuXXeF2vo9TPhqz8_DRWfD7fIPlduEWjAv2e6vnBKXt0UPJ8w" />');
 });
 
 app.listen(PORT, () => {
