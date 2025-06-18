@@ -66,5 +66,5 @@ app.get('/okta/redirect', async (req, res) => {
 app.listen(PORT, () => {
 	console.log(`Server running on http://localhost:${PORT}`);
 	console.log(`Login URL: http://localhost:${PORT}/login`);
-	console.log(`Redirect URL: http://localhost:${PORT}/authorization-code/callback`);
+	console.log(`Redirect URL: http://localhost:${PORT}/okta/redirect`);
 });
